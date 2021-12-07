@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Lista de paises</title>
+    <title>Cartelera</title>
     <jsp:include page="/includes/headCss.jsp"/>
 </head>
 <body>
@@ -15,13 +15,16 @@
         <jsp:param name="currentPage" value="cou"/>
     </jsp:include>
     <div class="row mb-5 mt-4">
+
         <div class="col-md-7">
-            <h1>Lista de Paises</h1>
+            <h1>Lista de la cartelera</h1>
         </div>
+
         <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
             <a href="<%= request.getContextPath()%>/CountryServlet?action=formCrear" class="btn btn-primary">
-                Crear País</a>
+                Agregar Cartelera</a>
         </div>
+
     </div>
     <jsp:include page="/includes/infoMsgs.jsp"/>
     <table class="table">
