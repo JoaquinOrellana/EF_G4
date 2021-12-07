@@ -1,6 +1,7 @@
 package com.example.ef_g4.Daos;
 
 
+import com.example.ef_g4.Beans.Cine;
 import com.example.ef_g4.Beans.Empleado;
 
 import java.sql.Connection;
@@ -27,27 +28,23 @@ public class DaoEmpleado extends DaoBase{
 
                 if (rs.next()) {
                     employee = new Empleado();
-                    employee.setEmployeeId(rs.getInt(1));
-                    employee.setFirstName(rs.getString(2));
-                    employee.setLastName(rs.getString(3));
-                    employee.setEmail(rs.getString(4));
-                    employee.setPhoneNumber(rs.getString(5));
-                    employee.setHireDate(rs.getString(6));
+                    employee.setIdEmpleado(rs.getInt(1));
+                    employee.setNombre(rs.getString(2));
+                    employee.setApellido(rs.getString(3));
+                    employee.setDni(rs.getString(4));
+                    employee.setSalario(rs.getBigDecimal(5));
+                    employee.setFechaContrato(rs.getString(6));
+                    employee.setNombreUsuario(rs.getString(7));
+                    employee.setEdad(rs.getInt(8));
+                    employee.setActivo(rs.getBoolean(9));
 
-                    Job job = new Job();
-                    job.setJobId(rs.getString(7));
-                    employee.setJob(job);
+                    Cine cine = new Cine();
+                    cine.setIdCine(rs.getInt(10));
+                    employee.setCine(cine);
 
-                    employee.setSalary(rs.getBigDecimal(8));
-                    employee.setCommissionPct(rs.getBigDecimal(9));
-
-                    Employee manager = new Employee();
-                    manager.setEmployeeId(rs.getInt(10));
-                    employee.setManager(manager);
-
-                    Department department = new Department();
-                    department.setDepartmentId(rs.getInt(11));
-                    employee.setDepartment(department);
+                    Empleado jefe = new Empleado();
+                    jefe.setIdEmpleado(rs.getInt(11));
+                    employee.setJefe(jefe);
 
                 }
             }
@@ -74,8 +71,8 @@ public class DaoEmpleado extends DaoBase{
 
             try (ResultSet rs = pstmt.executeQuery();) {
                 if (rs.next()) {
-                    int employeeId = rs.getInt(1);
-                    empleado = this.obtenerEmpleado(employeeId);
+                    String dni = rs.getString(1);
+                    empleado = this.obtenerEmpleado(dni);
                 }
             }
 
@@ -83,7 +80,7 @@ public class DaoEmpleado extends DaoBase{
             ex.printStackTrace();
         }
 
-        return employee;
+        return empleado;
     }
 
 
