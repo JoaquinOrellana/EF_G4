@@ -5,14 +5,10 @@ import com.example.ef_g4.Beans.Cine;
 import com.example.ef_g4.Beans.Empleado;
 import com.example.ef_g4.Beans.Rol;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
-public class DaoEmpleado extends DaoBase{
-
+public class DaoEmpleado extends DaoBase {
 
 
     public Empleado obtenerEmpleado(String dniEmpleado) {
@@ -49,7 +45,7 @@ public class DaoEmpleado extends DaoBase{
                     employee.setJefe(jefe);
 
                     ArrayList<Rol> listrol = new ArrayList<>();
-                    Rol rol =new Rol();
+                    Rol rol = new Rol();
                     rol.setIdRol(this.obteneridrol(employee.getIdEmpleado()));
                     listrol.add(rol);
                 }
@@ -62,7 +58,7 @@ public class DaoEmpleado extends DaoBase{
     }
 
 
-    public int obteneridrol(int idempleado){
+    public int obteneridrol(int idempleado) {
 
         String sql = "SELECT * FROM movies.rolempleado where idempleado=?;";
 
@@ -83,7 +79,6 @@ public class DaoEmpleado extends DaoBase{
         }
         return idrol;
     }
-
 
 
     public Empleado validarUsuarioPassword(String username, String password) {
@@ -111,5 +106,23 @@ public class DaoEmpleado extends DaoBase{
         return empleado;
     }
 
+
+    public int obtenerEmpleadosSinJefe() {
+
+        String sql = "SELECT count(*) FROM empleado where idjefe is null;";
+        int cantidadEmpleados = -1;
+
+        try (Connection conn = this.getConection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                cantidadEmpleados = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return cantidadEmpleados;
+    }
 
 }

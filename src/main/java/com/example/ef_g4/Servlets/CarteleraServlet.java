@@ -79,6 +79,10 @@ public class CarteleraServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/CarteleraServlet");
                 }
                 break;
+            case "reporte":
+
+
+                break;
         }
 
 
