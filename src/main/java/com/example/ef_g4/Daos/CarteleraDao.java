@@ -85,6 +85,28 @@ public class CarteleraDao extends DaoBase {
         }
     }
 
+    public void agregarFuncion(Cartelera cartelera) throws SQLException {
+
+        String sql = "INSERT INTO cartelera (idpelicula, idcine, 3d, doblada, subtitulada, horario) "
+                + "VALUES (?,?,?,?,?,?)";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);) {
+
+            ResultSet rsKeys = pstmt.getGeneratedKeys();
+
+            pstmt.setInt(1, rsKeys.getInt(1));
+            pstmt.setInt(2, cartelera.getPelicula().getIdPelicula());
+            pstmt.setInt(3, cartelera.getCine().getIdCine());
+            pstmt.setInt(4, cartelera.getTresD());
+            pstmt.setInt(5, cartelera.getDoblada());
+            pstmt.setInt(6, cartelera.getSubtitulada());
+            pstmt.setString(7, cartelera.getHorario());
+
+            pstmt.executeUpdate();
+        }
+    }
+
     public void borrarDeLaCartelera(int idCartelera) throws SQLException {
 
         String sql = "DELETE FROM cartelera WHERE idCartelera = ?";
