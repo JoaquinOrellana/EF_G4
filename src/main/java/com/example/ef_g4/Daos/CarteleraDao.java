@@ -65,4 +65,33 @@ public class CarteleraDao extends DaoBase {
 
         return cartelera;
     }
+
+    public void actualizarCartelera(Cartelera cartelera) throws SQLException {
+
+        String sql = "UPDATE cartelera SET idpelicula = ?, idcine = ?, 3d = ?, doblada = ?,subtitulada = ?, horario = ? "
+                + "WHERE idCartelera = ?";
+
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, cartelera.getPelicula().getIdPelicula());
+            pstmt.setInt(2, cartelera.getCine().getIdCine());
+            pstmt.setInt(3, cartelera.getTresD());
+            pstmt.setInt(4, cartelera.getDoblada());
+            pstmt.setInt(5, cartelera.getSubtitulada());
+            pstmt.setString(6, cartelera.getHorario());
+            pstmt.setInt(7, cartelera.getIdCartelera());
+
+            pstmt.executeUpdate();
+        }
+    }
+
+    public void borrarDeLaCartelera(int idCartelera) throws SQLException {
+
+        String sql = "DELETE FROM cartelera WHERE idCartelera = ?";
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idCartelera);
+            pstmt.executeUpdate();
+        }
+    }
 }
