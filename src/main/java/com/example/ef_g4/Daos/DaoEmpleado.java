@@ -3,11 +3,13 @@ package com.example.ef_g4.Daos;
 
 import com.example.ef_g4.Beans.Cine;
 import com.example.ef_g4.Beans.Empleado;
+import com.example.ef_g4.Beans.Rol;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class DaoEmpleado extends DaoBase{
 
@@ -46,6 +48,10 @@ public class DaoEmpleado extends DaoBase{
                     jefe.setIdEmpleado(rs.getInt(11));
                     employee.setJefe(jefe);
 
+                    ArrayList<Rol> listrol = new ArrayList<>();
+                    Rol rol =new Rol();
+                    rol.setIdRol(this.obteneridrol(employee.getIdEmpleado()));
+                    listrol.add(rol);
                 }
             }
         } catch (SQLException ex) {
@@ -55,6 +61,28 @@ public class DaoEmpleado extends DaoBase{
         return employee;
     }
 
+
+    public int obteneridrol(int idempleado){
+
+        String sql = "SELECT * FROM movies.rolempleado where idempleado=?;";
+
+        int idrol = 0;
+        try (Connection conn = this.getConection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+            pstmt.setInt(1, idempleado);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+
+                if (rs.next()) {
+                    idrol = rs.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return idrol;
+    }
 
 
 
