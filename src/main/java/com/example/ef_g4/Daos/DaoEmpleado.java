@@ -86,7 +86,7 @@ public class DaoEmpleado extends DaoBase{
 
 
 
-    public Empleado validarUsuarioPasswordHashed(String username, String password) {
+    public Empleado validarUsuarioPassword(String username, String password) {
 
         Empleado empleado = null;
 
