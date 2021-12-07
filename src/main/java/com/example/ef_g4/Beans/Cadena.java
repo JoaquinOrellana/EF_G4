@@ -1,4 +1,4 @@
-package Beans;
+package com.example.ef_g4.Beans;
 
 public class Cadena {
     private int idCadena;

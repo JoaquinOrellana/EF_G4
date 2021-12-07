@@ -1,4 +1,4 @@
-package Beans;
+package com.example.ef_g4.Beans;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
